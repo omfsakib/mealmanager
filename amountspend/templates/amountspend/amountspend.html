@@ -1,0 +1,54 @@
+{% extends 'base.html' %}
+{% load widget_tweaks %}
+{% block head %}
+    <title>Add Bills | Meal Manager</title>
+{% endblock %}
+
+{% block body %}
+    <section id="amountspend">
+        <div class="amountspend">
+            <div class="container">
+                <div class="amountspend_up">
+                    <form method="post" class="form">
+                        {% csrf_token %}
+                        <p>
+                            <label>Spended On :</label>
+                            {{ form.amountspend|add_class:'form-control'}}
+                        </p>
+                        <p>
+                            <label>Enter Amount :</label>
+                            {{ form.amount|add_class:'form-control'}}
+                        </p>
+                        <button type="submit" class="btn btn-success">Submit</button>
+                    </form>
+                </div>
+                <div class="amountspend_down">
+                    <table class="table">
+                        <thead class="thead-light">
+                            <tr>
+                                <th scope="col">Spended On</th>
+                                <th scope="col">Date</th>
+                                <th scope="col">Spended By:</th>
+                                <th scope="col">Amount :</th>
+                                <th scope="col">Delete</th:>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            {% for amountspend in amountspends %}
+                            <tr>
+                                <td>{{ amountspend.amountspend }}</td>
+                                <td>{{ amountspend.date }}</td>
+                                <td> {{ user.username }} </td>
+                                <td>{{ amountspend.amount }}</td>
+                                <td><a href="{% url 'amountspend:delete_amountspend' amountspend.id %}" class="btn btn-info btn-sm">
+                                    <span class="glyphicon glyphicon-trash"></span> Delete 
+                                  </a></td>
+                            </tr>
+                            {% endfor %}
+                        </tbody>
+                    </table>
+                </div>
+            </div>
+        </div>
+    </section>
+{% endblock %}
