@@ -1,0 +1,62 @@
+{% extends 'base.html' %}
+{% load widget_tweaks %}
+{% block head %}
+    <title>Add Bills | Meal Manager</title>
+{% endblock %}
+
+{% block body %}
+    <section id="cashdeposit">
+        <div class="cashdeposit">
+            <div class="container">
+                <div class="cashdeposit_up">
+                    <form method="post" class="form">
+                        {% csrf_token %}
+                        <p>
+                            <label>Depositor's name :</label>
+                            {{ form.cashdeposit|add_class:'form-control'}}
+                        </p>
+                       <p>
+                            <label>Depositor's Username :</label>
+                            <select class="form-control" name="user" required>
+                                <option value="{{ request.user.id }}">{{ request.user.username }}</option>
+                                {% for friend in friends %}
+                                    <option value="{{friend.id}}">{{friend.username}}</option>
+                                {% endfor %}
+                            </select></p>
+                        <p>
+                            <label>Enter Amount :</label>
+                            {{ form.amount|add_class:'form-control'}}
+                        </p>
+                        <button type="submit" class="btn btn-success">Submit</button>
+                    </form>
+                </div>
+                <div class="cashdeposit_down">
+                    <table class="table">
+                        <thead class="thead-light">
+                            <tr>
+                                <th scope="col"> <p>Depositor's name</p> </th>
+                                <th scope="col"> <p>Username</p> </th>
+                                <th scope="col"> <p>Date added</p> </th>
+                                <th scope="col">Amount</th>
+                                <th scope="col">Delete</th:>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            {% for cashdeposit in cashdeposits %}
+                            <tr>
+                                <td>{{ cashdeposit.cashdeposit }}</td>
+                                <td>{{ cashdeposit.user }}</td>
+                                <td> {{ cashdeposit.date }} </td>
+                                <td>{{ cashdeposit.amount }}</td>
+                                <td><a href="{% url 'cashdeposit:delete_cashdeposit' cashdeposit.id %}" class="btn btn-info btn-sm">
+                                    <span class="glyphicon glyphicon-trash"></span> Delete 
+                                  </a></td>
+                            </tr>
+                            {% endfor %}
+                        </tbody>
+                    </table>
+                </div>
+            </div>
+        </div>
+    </section>
+{% endblock %}
