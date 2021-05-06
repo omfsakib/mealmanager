@@ -1,0 +1,70 @@
+{% extends 'base.html' %}
+{% load widget_tweaks %}
+{% block head %}
+    <title>Messdetails | Meal Manager</title>
+{% endblock %}
+
+{% block body %}
+    <section id="messdetails">
+        <div class="messdetails">
+            <div class="container">
+                <div class="messdetails_up">
+                    <form method="GET" class="form">
+                        {% csrf_token %}
+                        <p>
+                            <label>Enter Mess Name :</label>
+                            <input type="text" name="mess_name" placeholder="Enter mess name" class="form-control">
+                        </p>
+                        <button type="submit" class="btn btn-success">Submit</button>
+                    </form>
+                </div>
+                <div class="messdetails_down">
+                    <div class="row">
+                        <div class="col-md-12">
+                            <h2>Group Member</h2>
+                            <table class="table">
+                                <thead class="thead-light">
+                                    <tr>
+                                        <th scope="col"><p>Image :</p> </th>
+                                        <th scope="col"><p>Full Name :</p> </th>
+                                        <th scope="col"><p>Username :</p></th>
+                                        <th scope="col"><p>Email : </p> </th>
+                                        <th scope="col"><p>Phone Number :</p></th>
+                                        <th scope="col"><p>Remove Member :</p></th>
+                                    </tr> 
+                                </thead>
+                                <tbody>
+                                    <tr>
+                                        <td><p>{% if friend.userprofile.image %} {{request.user.userprofile.image }} {% endif %}</p></td>
+                                        <td><p> {{request.user.first_name }} {{ request.user.last_name }} </p></td>
+                                        <td><p> {{request.user.username }} </p></td>
+                                        <td><p> {{ request.user.email }} </p></td>
+                                        <td><p>{% if friend.userprofile.phone %} 0{{ request.user.userprofile.phone }} {% endif %}</p></td>
+                                        <td><p>  </p></td>
+                                    </tr>
+                                    {% for friend in friends %}
+                                    <tr>
+                                        <td> <p>{% if friend.userprofile.image %}
+                                            <img src="{{ friend.userprofile.image.url }}" width="40px" class="messdetails-image">
+                                            {% endif %}</p> </td>
+                                        <td> <p> {{ friend.first_name }} {{ friend.last_name }}</p></td>
+                                        <td> <p> {{ friend.username }}</p></td>
+                                        <td> <p> {{ friend.email }} </p> </td>
+                                        <td> <p>{% if friend.userprofile.phone %}
+                                             0{{ friend.userprofile.phone }} 
+                                            {% endif %}</p></td>
+                                        <td><a href="{% url 'groups:change_friends' operation='remove' pk=friend.pk %}">
+                                            <button type="button" class="btn btn-danger">Remove</button>
+                                            </a>
+                                        </td>
+                                    </tr>
+                                    {% endfor %}
+                                </tbody>
+                            </table>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+{% endblock %}
