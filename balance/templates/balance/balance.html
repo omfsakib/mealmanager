@@ -1,0 +1,50 @@
+{% extends 'base.html' %}
+{% load widget_tweaks %}
+{% block head %}
+    <title>Balance | Meal Manager</title>
+{% endblock %}
+
+{% block body %}
+    <section id="balance">
+        <div class="balance">
+            <div class="container">
+                <div class="balance_up">
+                    <h2>Balance Page</h2>
+                </div>
+                <div class="balance_down">
+                    <div class="row">
+                        <div class="col-md-12">
+                            <h2>Main Balance : </h2>
+                            <table class="table">
+                                <thead class="thead-light">
+                                    <tr>
+                                        <th scope="col"><p>Username :</p></th>
+                                        <th scope="col"><p>Amount Deposited :</p></th>
+                                        <th scope="col"><p>Amount Spended :</p></th>
+                                        <th scope="col"><p>Personal Balance :</p></th>
+                                    </tr>
+                                </thead>
+                                <tbody>
+                                    <tr>
+                                        <td><p>{{ request.user.username }}</p></td>
+                                        <td><p></p></td>
+                                        <td><p></p></td>
+                                        <td><p></p></td>
+                                    </tr>
+                                    {% for friend in friends %}
+                                    <tr>
+                                         <td><p>{{ friend.username }}</p></td>
+                                        <td><p></p></td>
+                                        <td><p></p></td>
+                                        <td><p></p></td>
+                                    </tr>
+                                    {% endfor %}
+                                </tbody>
+                            </table>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+{% endblock %}
