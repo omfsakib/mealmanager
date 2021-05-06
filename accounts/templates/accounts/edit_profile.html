@@ -1,0 +1,55 @@
+{% extends 'base.html' %}
+{% load widget_tweaks %}
+{% block head %}
+    <title>Edit Profile | Meal Manager</title>
+{% endblock %}
+
+{% block body %}
+<section id="edit_profile">
+    <div class="edit_profile">
+        <div class="edit_profile-box">
+            <h6 class="heading">Edit Profile</h6>
+            <div class="form">
+                <form method="POST">
+                    {% csrf_token %}
+                    <p>
+                        <label>First Name :</label>
+                        {{ form.first_name|add_class:'form-control'|add_class:'login-form' }}
+                    </p>
+                    <p>
+                        <label>Last Name :</label>
+                        {{ form.last_name|add_class:'form-control'|add_class:'login-form' }}
+                    </p>
+                    <p>
+                        <label>Email :</label>
+                        {{ form.email|add_class:'form-control'|add_class:'login-form' }}
+                    </p>
+                    <p>
+                        <label>Description :</label>
+                        {{ form.description|add_class:'form-control'|add_class:'login-form' }}
+                    </p>
+                    <p>
+                        <label>City :</label>
+                        {{ form.city|add_class:'form-control'|add_class:'login-form' }}
+                    </p>
+                    <p>
+                        <label>Website :</label>
+                        {{ form.website|add_class:'form-control'|add_class:'login-form' }}
+                    </p>
+                    <p>
+                        <label>Phone :</label>
+                        {{ form.phone|add_class:'form-control'|add_class:'login-form' }}
+                    </p>
+                    <p>
+                        <label>Image :</label>
+                        {{ form.image|add_class:'form-control'|add_class:'login-form' }}
+                    </p>
+                    
+                    <button type="submit" class="btn btn-success">Submit</button><br>
+                    <a href="{% url 'accounts:change_password' %}" class="btn btn-primary btn-lg" role="button" >Change Password</a>
+                </form>
+            </div>
+        </div> 
+    </div>           
+</section>
+{% endblock %}

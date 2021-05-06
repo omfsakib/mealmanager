@@ -1,0 +1,49 @@
+{% extends 'base.html' %}
+{% load widget_tweaks %}
+{% block head %}
+    <title>Register | Meal Manager</title>
+{% endblock %}
+
+{% block body %}
+<section id="signup">
+    <div class="signup">
+        <div class="signup-box">
+            <h6 class="heading">Meal Manager</h6>
+            <div class="form">
+                <form method="POST">
+                    {% csrf_token %}
+                    <p>
+                        <label>Username :</label>
+                        {{ form.username|add_class:'form-control'|add_class:'login-form' }}
+                    </p>
+                    <p>
+                        <label>First Name :</label>
+                        {{ form.first_name|add_class:'form-control'|add_class:'login-form' }}
+                    </p>
+                    <p>
+                        <label>Last Name :</label>
+                        {{ form.last_name|add_class:'form-control'|add_class:'login-form' }}
+                    </p>
+                    <p>
+                        <label>Email :</label>
+                        {{ form.email|add_class:'form-control'|add_class:'login-form' }}
+                    </p>
+                    <p>
+                        <label>Password :</label>
+                        {{ form.password1|add_class:'form-control'|add_class:'login-form' }}
+                    </p>
+                    <p>
+                        <label>Password Again :</label>
+                        {{ form.password2|add_class:'form-control'|add_class:'login-form' }}
+                    </p>
+                    
+                    <button type="submit" class="btn btn-success">Register</button><br>
+
+                    <a href="{% url 'accounts:login' %}">Have an account? <br> Login</a>
+                </form>
+            </div>
+        </div> 
+    </div>           
+</section>
+{% endblock %}
+

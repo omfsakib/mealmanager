@@ -1,0 +1,40 @@
+{% extends 'base.html' %}
+
+{% load widget_tweaks %}
+
+{% block head %}
+    <title>Profile | Meal Manager</title>
+{% endblock %}
+
+
+{% block body %}
+<section id="profile">
+    <div class="profile">
+        <div class="container">
+            <div class="row">
+                <div class="col-md-6 profile-left">
+                    {% if user.userprofile.image %}
+                    <img src="{{ user.userprofile.image.url }}" width="240px">
+                    {% endif %}
+                    <h1>
+                        {{ user.first_name }}
+                        {{ user.last_name }}
+                    </h1>
+                    <p class="lead">Description: {{ user.userprofile.description }}</p>
+                </div>
+                <div class="col-md-6 profile-right">
+                    <div class="profile-right-content">
+                        <p>Username: {{ user }}</p>
+                        <p>Email: {{ user.email }}</p>
+                        <p>Phone: {{ user.userprofile.phone }}</p>
+                        <p>City: {{ user.userprofile.city }}</p>
+                        <p>Website: {{ user.userprofile.website }}</p>
+                        <a href="{% url 'accounts:edit_profile' %}" class="btn btn-primary btn-lg" role="button">Edit Profile</a>
+                        <a href="{% url 'accounts:change_password' %}" class="btn btn-primary btn-lg" role="button">Change Password</a>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>           
+</section>
+{% endblock %}

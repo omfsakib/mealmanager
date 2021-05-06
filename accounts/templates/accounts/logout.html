@@ -1,0 +1,23 @@
+{% extends 'base.html' %}
+
+    {% block head %}
+    <title>Logged Out | Meal Manager</title>
+    {% endblock %}
+
+    {% block body %}
+    <section id="logout">
+        <div class="logout">
+            <div class="logout-box">
+                <div class="form">
+                    <h1>Logged Out</h1>
+                    <p>
+                        You have logged out!
+                    </p>
+                    <a href="{% url 'accounts:login' %}" class="btn btn-primary btn-lg" role="button">Login</a>
+                </div>
+            </div>
+        </div>              
+    </section>
+        
+        
+    {% endblock %}

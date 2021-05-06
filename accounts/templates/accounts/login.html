@@ -1,0 +1,33 @@
+{% extends 'base.html' %}
+{% load widget_tweaks %}
+{% block head %}
+    <title>Login | Meal Manager</title>
+{% endblock %}
+
+{% block body %}
+<section id="login">
+    <div class="login">
+        <div class="login-box">
+            <h6 class="heading">Meal Manager</h6>
+            <div class="form">
+                <form method="POST">
+                    {% csrf_token %}
+                    <p>
+                        <label>Username :</label>
+                        {{ form.username|add_class:'form-control'}}
+                    </p>
+                    <p>
+                        <label>Password :</label>
+                        {{ form.password|add_class:'form-control'}}
+                    </p>
+                    
+                    <button type="submit" class="btn btn-success">Login</button><br>
+
+                    <a href="{% url 'accounts:reset_password' %}">Forgot Password? <br> Reset</a>
+                </form>
+            </div>
+        </div> 
+    </div>           
+</section>
+{% endblock %}
+
