@@ -1,0 +1,85 @@
+{% extends 'base.html' %}
+
+{% block head %}
+
+<title>Home | Meal Manager</title>
+
+{% endblock %}
+{% block body %}
+<div class="container-fluid">
+<div class="row first-row">
+    <div class="col-md-4 col-sm-6 grid-view">
+      <a href="{% url 'mealsheet:mealsheet' %}">
+        <span class="link"></span>
+      </a>
+      <div class="meal-sheet"></div>
+      <div class="meal-content">
+        <h1>
+          Meal Sheet
+        </h1>
+        
+      </div>
+
+    </div>
+    <div class="col-md-4 col-sm-6 grid-view">
+      <a href="{% url 'cashdeposit:cashdeposit' %}">
+        <span class="link"></span>
+      </a>
+      <div class="cash_deposit"></div>
+      <div class="deposit_content">
+        <h1>
+          Cash Deposit
+        </h1>
+      </div>
+    </div>
+    <div class="col-md-4 col-sm-6 grid-view">
+      <a href="{% url 'amountspend:amountspend' %}">
+        <span class="link"></span>
+      </a>
+      <div class="amount_spend"></div>
+      <div class="spend_content">
+        <h1>
+          Amount Spend
+        </h1>
+      </div>
+    </div>
+  </div>
+</div>
+<div class="container-fluid">
+  <div class="row first-row">
+      <div class="col-md-4 col-sm-6 grid-view">
+        <a href="{% url 'addbills:addbills' %}">
+          <span class="link"></span>
+        </a>
+        <div class="total_bills"></div>
+        <div class="bills_content">
+          <h1>
+            Total Bills
+          </h1>
+        </div>
+      </div>
+      <div class="col-md-4 col-sm-6 grid-view">
+        <a href="{% url 'mess:messdetails' %}">
+          <span class="link"></span>
+        </a>
+        <div class="mess_view"></div>
+        <div class="mess_content">
+          <h1>
+            Mess Details
+          </h1>
+        </div>
+      </div>
+      <div class="col-md-4 col-sm-6 grid-view">
+        <a href="{% url 'balance:balance' %}">
+          <span class="link"></span>
+        </a>
+        <div class="balance_view"></div>
+        <div class="balance_content">
+          <h1>
+            Balance
+          </h1>
+        </div>
+      </div>
+    </div>
+</div>
+{% endblock %}
