@@ -1,0 +1,96 @@
+{% extends 'base.html' %}
+
+{% block head %}
+    <title>Add Groups | Meal Manager</title>
+{% endblock %}
+
+{% block body %}
+    <section id="groups">
+        <div class="groups">
+            <div class="container">
+                <div class="groups_contents">
+                    <div class="row">
+                        <div class="col-md-12">
+                            <h2>Group Member</h2>
+                            <table class="table">
+                                <thead class="thead-light">
+                                    <tr>
+                                        <th scope="col"><p>Full Name :</p> </th>
+                                        <th scope="col"><p>Username :</p></th>
+                                        <th scope="col"><p>Email : </p> </th>
+                                        <th scope="col"><p>Remove Member :</p></th>
+                                        <th scope="col"><p>View Profile :</p></th>
+                                    </tr> 
+                                </thead>
+                                <tbody>
+                                    <tr>
+                                        <td><p> {{request.user.first_name }} {{ request.user.last_name }} </p></td>
+                                        <td><p> {{request.user.username }} </p></td>
+                                        <td><p> {{ request.user.email }} </p></td>
+                                        <td><p>  </p></td>
+                                        <td><p> 
+                                            <a href="{% url 'accounts:view_profile'%}" class="btn btn-primary btn-md" role="button">View Profile</a> </p></td>
+                                    </tr>
+                                    {% for friend in friends %}
+                                    <tr>
+                                        <td> <p> {{ friend.first_name }} {{ friend.last_name }}</p></td>
+                                        <td> <p> {{ friend.username }}</p></td>
+                                        <td> <p> {{ friend.email }} </p> </td>
+                                        <td><a href="{% url 'groups:change_friends' operation='remove' pk=friend.pk %}">
+                                            <button type="button" class="btn btn-danger">Remove</button>
+                                            </a>
+                                        </td>
+                                        <td>
+                                            <a href="{% url 'accounts:view_profile_with_pk' pk=user.pk %}" class="btn btn-primary btn-md" role="button">View Profile</a>
+                                        </td>
+                                    </tr>
+                                    {% endfor %}
+                                </tbody>
+                            </table>
+                        </div>
+                        <div class="col-md-12">
+                            <h2>Find Group Member</h2>
+                            <p>Try searching anything that conatains to the person. </p>  
+                            <input id="myInput" type="text" name="Search" placeholder="Search.." class="form-control">
+                            <br><br>
+
+                            <table class="table">
+                                <thead class="thead-light">
+                                    <tr>
+                                        <th scope="col"> <p> Full Name : </p></th>
+                                        <th scope="col"><p> Username : </p></th>
+                                        <th scope="col"><p> Email : </p></th>
+                                        <th scope="col"><p> Add Member : </p></th>
+                                        <th scope="col"><p> View Profile : </p></th>
+                                    </tr>
+                                </thead>
+                                <tbody id="myTable">
+                                    {% for user in users %}
+                                    <tr>
+                                        <td> <p> {{ user.first_name }} {{ user.last_name }} </p></td>
+                                        <td><p> {{ user.username }} </p> </td>
+                                        <td><p> {{ user.email }} </p></td>
+                                        <td>{% if not user in friends %}
+                                            <a href="{% url 'groups:change_friends' operation='add' pk=user.pk %}">
+                                            <button type="button" class="btn btn-success">Add Friend</button>
+                                            </a>
+                                            {% endif %}
+                                            {% if user in friends %}
+                                            <p>Already a member</p>
+                                            {% endif %}
+                                        </td>
+                                        <td>
+                                            <a href="{% url 'accounts:view_profile_with_pk' pk=user.pk %}" class="btn btn-primary btn-md" role="button">View Profile</a>
+                                        </td>
+                                    </tr>
+                                    {% endfor %}
+                                </tbody>
+                            </table>
+                        </div> 
+                    </div>
+
+                </div>
+            </div>
+        </div>
+    </section>
+{% endblock %}
