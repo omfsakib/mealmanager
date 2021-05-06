@@ -1,0 +1,50 @@
+{% extends 'base.html' %}
+{% load widget_tweaks %}
+{% block head %}
+    <title>Mealsheet | Meal Manager</title>
+{% endblock %}
+
+{% block body %}
+    <section id="mealsheet">
+        <div class="mealsheet">
+            <div class="container">
+                <div class="mealsheet_up">
+                    <form method="GET" class="form">
+                        {% csrf_token %}
+                        <p>
+                            <label>Enter Meal Username Wise:</label>
+                            {{ form.meal|add_class:'form-control'}}
+                        </p>
+                        <button type="submit" class="btn btn-success">Submit</button>
+                    </form>
+                </div>
+                <div class="mealsheet_down">
+                    <div class="row">
+                        <div class="col-md-12">
+                            <h2>Group Member</h2>
+                            <table class="table">
+                                <thead class="thead-light">
+                                    <tr>
+                                        <th scope="col"><p>{{request.user.username }}</p> </th>
+                                        {% for friend in friends %}
+                                        <th scope="col"><p>{{ friend.username }}</p> </th>
+                                        
+                                        {% endfor %}
+                                    </tr> 
+                                </thead>
+                                <tbody>
+                                    <tr>
+                                        <td><p>{{ meal.meal }}</p></td>
+                                        {% for friend in friends %}
+                                        <td><p>{{ meal.meal }}</p></td>
+                                        {% endfor %}
+                                    </tr>
+                                </tbody>
+                            </table>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+{% endblock %}
