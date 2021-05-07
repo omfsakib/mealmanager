@@ -30,6 +30,7 @@
                                         <th scope="col"><p>Username :</p></th>
                                         <th scope="col"><p>Email : </p> </th>
                                         <th scope="col"><p>Phone Number :</p></th>
+                                        <th scope="col"><p>View Profile :</p></th>
                                         <th scope="col"><p>Remove Member :</p></th>
                                     </tr> 
                                 </thead>
@@ -40,6 +41,9 @@
                                         <td><p> {{request.user.username }} </p></td>
                                         <td><p> {{ request.user.email }} </p></td>
                                         <td><p>{% if friend.userprofile.phone %} 0{{ request.user.userprofile.phone }} {% endif %}</p></td>
+                                        <td>
+                                            <a href="{% url 'accounts:view_profile' %}" class="btn btn-primary btn-md" role="button">View Profile</a>
+                                        </td>
                                         <td><p>  </p></td>
                                     </tr>
                                     {% for friend in friends %}
@@ -53,6 +57,9 @@
                                         <td> <p>{% if friend.userprofile.phone %}
                                              0{{ friend.userprofile.phone }} 
                                             {% endif %}</p></td>
+                                            <td>
+                                                <a href="{% url 'accounts:view_profile_with_pk' pk=friend.pk %}" class="btn btn-primary btn-md" role="button">View Profile</a>
+                                            </td>
                                         <td><a href="{% url 'groups:change_friends' operation='remove' pk=friend.pk %}">
                                             <button type="button" class="btn btn-danger">Remove</button>
                                             </a>
