@@ -25,12 +25,22 @@
                 <div class="col-md-6 profile-right">
                     <div class="profile-right-content">
                         <p>Username: {{ user }}</p>
+                        {% if user.email %}
                         <p>Email: {{ user.email }}</p>
+                        {% endif %}
+                        {% if user.userprofile.phone %}
                         <p>Phone: {{ user.userprofile.phone }}</p>
+                        {% endif %}
+                        {% if user.userprofile.city %}
                         <p>City: {{ user.userprofile.city }}</p>
+                        {% endif %}
+                        {% if user.userprofile.website %}
                         <p>Website: {{ user.userprofile.website }}</p>
+                        {% endif %}
+                        {% if user == request.user %}
                         <a href="{% url 'accounts:edit_profile' %}" class="btn btn-primary btn-lg" role="button">Edit Profile</a>
                         <a href="{% url 'accounts:change_password' %}" class="btn btn-primary btn-lg" role="button">Change Password</a>
+                        {% endif %}
                     </div>
                 </div>
             </div>
