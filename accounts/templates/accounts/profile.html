@@ -16,11 +16,15 @@
                     {% if user.userprofile.image %}
                     <img src="{{ user.userprofile.image.url }}" width="240px">
                     {% endif %}
+                    {% if user.first_name %}
                     <h1>
                         {{ user.first_name }}
                         {{ user.last_name }}
                     </h1>
+                    {% endif %}
+                    {% if user.userprofile.description %}
                     <p class="lead">Description: {{ user.userprofile.description }}</p>
+                    {% endif %}
                 </div>
                 <div class="col-md-6 profile-right">
                     <div class="profile-right-content">
