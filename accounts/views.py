@@ -30,15 +30,15 @@ def view_profile(request, pk = None):
 
 def edit_profile(request):
     if request.method == 'POST':
-        form = EditProfileForm(instance=request.user)
+        form = EditProfileForm(request.POST,instance=request.user)
         if form.is_valid():
             user = form.save(commit=False)
             user.userprofile.description = form.cleaned_data['description']
-            print(user.userprofile.description)
             user.userprofile.phone = form.cleaned_data['phone']
             user.userprofile.city = form.cleaned_data['city']
             user.userprofile.website = form.cleaned_data['website']
             user.userprofile.image = form.cleaned_data['image']
+            print(user.userprofile.image)
             user.save()
             user.userprofile.save()
             return redirect(reverse('accounts:view_profile'))
