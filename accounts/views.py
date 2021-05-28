@@ -3,12 +3,9 @@ from django.urls import reverse
 from accounts.forms import RegistrationForm,EditProfileForm
 from django.contrib.auth.models import User
 from django.contrib.auth.forms import PasswordChangeForm
+from accounts.models import UserProfile
 
 # Create your views here.
-def home(request):
-    return HttpResponse('It Works !')
-
-
 def register(request):
     if request.method =='POST':
         form = RegistrationForm(request.POST)   
@@ -33,17 +30,21 @@ def view_profile(request, pk = None):
 
 def edit_profile(request):
     if request.method == 'POST':
-        form = EditProfileForm(request.POST, instance=request.user)
+        form = EditProfileForm(instance=request.user)
         if form.is_valid():
             user = form.save(commit=False)
             user.userprofile.description = form.cleaned_data['description']
+            print(user.userprofile.description)
             user.userprofile.phone = form.cleaned_data['phone']
             user.userprofile.city = form.cleaned_data['city']
             user.userprofile.website = form.cleaned_data['website']
             user.userprofile.image = form.cleaned_data['image']
+            user.save()
+            user.userprofile.save()
             return redirect(reverse('accounts:view_profile'))
     else:
         form = EditProfileForm(instance=request.user)
+
         args = {'form': form}
         return render(request, 'accounts/edit_profile.html', args)
 

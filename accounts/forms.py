@@ -27,11 +27,11 @@ class RegistrationForm(UserCreationForm):
         return user
 
 class EditProfileForm(UserChangeForm):
-    description=forms.CharField(max_length=100,required=None)
-    city = forms.CharField(max_length=100,required=None)
-    website = forms.URLField(required=None)
-    phone = forms.IntegerField(required=None)
-    image = forms.ImageField(required=None)
+    description=forms.CharField(max_length=100,required=False)
+    city = forms.CharField(max_length=100,required=False)
+    website = forms.URLField(required=False)
+    phone = forms.IntegerField(required=False)
+    image = forms.ImageField(required=False)
 
     class Meta:
         model = User
