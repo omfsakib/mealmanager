@@ -1,10 +1,9 @@
-from django.shortcuts import redirect,render,HttpResponse
+from django.contrib.auth import update_session_auth_hash
+from django.shortcuts import redirect,render
 from django.urls import reverse
-from accounts.forms import RegistrationForm,EditProfileForm
+from accounts.forms import EditUserProfileForm, RegistrationForm,EditProfileForm
 from django.contrib.auth.models import User
 from django.contrib.auth.forms import PasswordChangeForm
-from accounts.models import UserProfile
-
 # Create your views here.
 def register(request):
     if request.method =='POST':
@@ -31,21 +30,22 @@ def view_profile(request, pk = None):
 def edit_profile(request):
     if request.method == 'POST':
         form = EditProfileForm(request.POST,instance=request.user)
-        if form.is_valid():
-            user = form.save(commit=False)
-            user.userprofile.description = form.cleaned_data['description']
-            user.userprofile.phone = form.cleaned_data['phone']
-            user.userprofile.city = form.cleaned_data['city']
-            user.userprofile.website = form.cleaned_data['website']
-            user.userprofile.image = form.cleaned_data['image']
-            print(user.userprofile.image)
+        userform = EditUserProfileForm(request.POST,request.FILES,instance=request.user.userprofile)
+        if (form and userform).is_valid():
+            user = (form and userform).save(commit=False)
+            user.description = userform.cleaned_data.get("description")
+            user.phone = userform.cleaned_data.get("phone")
+            user.city = userform.cleaned_data.get("city")
+            user.website = userform.cleaned_data.get("website")
+            user.image = userform.cleaned_data.get("image")
+            print(user.image)
             user.save()
-            user.userprofile.save()
             return redirect(reverse('accounts:view_profile'))
     else:
         form = EditProfileForm(instance=request.user)
+        userform = EditUserProfileForm(instance=request.user.userprofile)
 
-        args = {'form': form}
+        args = {'form': form,'userform':userform}
         return render(request, 'accounts/edit_profile.html', args)
 
 
