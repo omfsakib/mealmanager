@@ -12,34 +12,58 @@
     <div class="profile">
         <div class="container">
             <div class="row">
-                <div class="col-md-6 profile-left">
+                <div class="col-md-12 profile-up">
                     {% if user.userprofile.image %}
                     <img src="{{ user.userprofile.image.url }}" width="240px">
                     {% endif %}
-                    {% if user.first_name %}
-                    <h1>
+                    {% if user.first_name or user.last_name %}
+                    <h1><span>
                         {{ user.first_name }}
                         {{ user.last_name }}
-                    </h1>
+                    </span></h1>
                     {% endif %}
-                    {% if user.userprofile.description %}
-                    <p class="lead">Description: {{ user.userprofile.description }}</p>
+                    {% if user.userprofile.profession %}
+                    <p>
+                        <span>{{ user.userprofile.profession }}</span>
+                    </p>
                     {% endif %}
+                    {% if user.userprofile.institute %}
+                    <p>
+                        <span>{{ user.userprofile.institute }}</span>
+                    </p>
+                    {% endif %}
+                    {% if user.email %}
+                    <p>
+                        <span>Email:</span> {{ user.email }}
+                    </p>
+                    {% endif %}
+                </div>
+                <div class="col-md-6 profile-left">
+                    <div class="profile-left-content">
+                        <p><span>Username:</span> {{ user }}</p>
+                        {% if user.userprofile.phone %}
+                            <p> <span>Phone:</span> 0{{ user.userprofile.phone }}</p>
+                        {% endif %}
+                        {% if user.userprofile.blood %}
+                        <p>
+                            <span>Blood Group:</span> {{ user.userprofile.blood }}
+                        </p>
+                        {% endif %}
+                        {% if user.userprofile.website %}
+                            <p><span>Website:</span> {{ user.userprofile.website }}</p>
+                        {% endif %}
+                        {% if user.userprofile.city %}
+                            <p> <span>Address:</span> {{ user.userprofile.city }}</p>
+                        {% endif %}
+                    </div>
                 </div>
                 <div class="col-md-6 profile-right">
                     <div class="profile-right-content">
-                        <p>Username: {{ user }}</p>
-                        {% if user.email %}
-                        <p>Email: {{ user.email }}</p>
-                        {% endif %}
-                        {% if user.userprofile.phone %}
-                        <p>Phone: {{ user.userprofile.phone }}</p>
-                        {% endif %}
-                        {% if user.userprofile.city %}
-                        <p>City: {{ user.userprofile.city }}</p>
-                        {% endif %}
-                        {% if user.userprofile.website %}
-                        <p>Website: {{ user.userprofile.website }}</p>
+                        <p><span>
+                            About {{ user.first_name }},
+                        </span></p>
+                        {% if user.userprofile.description %}
+                            <p class="lead">{{ user.userprofile.description }}</p>
                         {% endif %}
                         {% if user == request.user %}
                         <a href="{% url 'accounts:edit_profile' %}" class="btn btn-primary btn-lg" role="button">Edit Profile</a>

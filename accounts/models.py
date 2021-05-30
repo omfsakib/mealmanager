@@ -8,11 +8,15 @@ from django.dispatch import receiver
 # Create your models here.
 class UserProfile(models.Model):
     user = models.OneToOneField(User,on_delete=models.CASCADE)
-    description = models.CharField(max_length=100,default='')
+    description = models.CharField(max_length=500,default='')
     city = models.CharField(max_length=100,default='')
     website = models.URLField(default='')
     phone = models.IntegerField(default=0)
-    image = models.ImageField(upload_to='profile_image',blank= True)
+    profession = models.CharField(max_length=100,default='')
+    institute = models.CharField(max_length=100,default='')
+    blood = models.CharField(max_length=10,default='')
+    
+    image = models.ImageField(upload_to='profile_image',default='default.jpg')
 
     def __str__(self):
         return self.user.username

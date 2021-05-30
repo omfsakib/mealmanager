@@ -35,13 +35,24 @@ class EditProfileForm(UserChangeForm):
             'last_name',
             'password'
         )
-
+BLOOD_GROUPS = [
+    ('A+', 'A+'),
+    ('A-', 'A-'),
+    ('B+', 'B+'),
+    ('B-', 'B-'),
+    ('O+', 'O+'),
+    ('O-', 'O+'),
+    ('AB+', 'AB+'),
+    ('AB-', 'AB-'),
+]
 class EditUserProfileForm(forms.ModelForm):
-    description=forms.CharField(max_length=100,required=False)
-    city = forms.CharField(max_length=100,required=False)
-    website = forms.URLField(required=False)
-    phone = forms.IntegerField(required=False)
-    image = forms.FileField(required=None)
+    description=forms.CharField(max_length=100,widget=forms.Textarea)
+    city = forms.CharField(max_length=100)
+    website = forms.URLField()
+    phone = forms.IntegerField()
+    profession = forms.CharField(max_length=100)
+    blood = forms.CharField(widget=forms.Select(choices=BLOOD_GROUPS))
+    institute = forms.CharField(max_length=100)
 
     class Meta:
         model = User
@@ -50,6 +61,8 @@ class EditUserProfileForm(forms.ModelForm):
             'city',
             'website',
             'phone',
-            'image'
+            'profession',
+            'blood',
+            'institute'
             
         )
