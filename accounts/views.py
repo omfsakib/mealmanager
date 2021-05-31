@@ -4,13 +4,14 @@ from django.urls import reverse
 from accounts.forms import EditUserProfileForm, RegistrationForm,EditProfileForm
 from django.contrib.auth.models import User
 from django.contrib.auth.forms import PasswordChangeForm
+from accounts.models import UserProfile
 # Create your views here.
 def register(request):
     if request.method =='POST':
         form = RegistrationForm(request.POST)   
         if form.is_valid():
             form.save()
-            return redirect('/account')
+            return redirect('/home')
     else:
         form = RegistrationForm()
 
@@ -30,7 +31,7 @@ def view_profile(request, pk = None):
 def edit_profile(request):
     if request.method == 'POST':
         form = EditProfileForm(request.POST,instance=request.user)
-        userform = EditUserProfileForm(request.POST,request.FILES,instance=request.user.userprofile)
+        userform = EditUserProfileForm(request.POST,request.FILES,instance=request.user.userprofile)      
         if (form and userform).is_valid():
             user = form.save(commit=False)
             user.save()

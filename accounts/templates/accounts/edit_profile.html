@@ -7,57 +7,87 @@
 {% block body %}
 <section id="edit_profile">
     <div class="edit_profile">
-        <div class="edit_profile-box">
-            <h6 class="heading">Edit Profile</h6>
+        <div class="container">
             <div class="form">
                 <form method="POST">
-                    {% csrf_token %}
-                    <p>
-                        <label>First Name :</label>
-                        {{ form.first_name|add_class:'form-control'|add_class:'login-form' }}
-                    </p>
-                    <p>
-                        <label>Last Name :</label>
-                        {{ form.last_name|add_class:'form-control'|add_class:'login-form' }}
-                    </p>
-                    <p>
-                        <label>Email :</label>
-                        {{ form.email|add_class:'form-control'|add_class:'login-form' }}
-                    </p>
-                    <p>
-                        <label>Blood Group :</label>
-                        {{ userform.blood|add_class:'form-control'|add_class:'login-form' }}
-                    </p>
-                    <p>
-                        <label>Profession :</label>
-                        {{ userform.profession|add_class:'form-control'|add_class:'login-form' }}
-                    </p>
-                    <p>
-                        <label>Institute :</label>
-                        {{ userform.institute|add_class:'form-control'|add_class:'login-form' }}
-                    </p>
-                    <p>
-                        <label>Address :</label>
-                        {{ userform.city|add_class:'form-control'|add_class:'login-form' }}
-                    </p>
-                    <p>
-                        <label>Website :</label>
-                        {{ userform.website|add_class:'form-control'|add_class:'login-form' }}
-                    </p>
-                    <p>
-                        <label>Phone :</label>
-                        {{ userform.phone|add_class:'form-control'|add_class:'login-form' }}
-                    </p>
-                    <p>
-                        <label>Description :</label>
-                        {{ userform.description|add_class:'form-control'|add_class:'login-form' }}
-                    </p>
-                    
-                    <button type="submit" class="btn btn-success">Submit</button><br>
-                    <a href="{% url 'accounts:change_password' %}" class="btn btn-primary btn-lg" role="button" >Change Password</a>
+                    <div class="row">
+                        <div class="col-md-12 edit_profile-up">
+                            {% csrf_token %}
+                                {% if user.userprofile.image %}
+                                <img src="{{ user.userprofile.image.url }}" width="240px">
+                                {% endif %}
+                            <p>
+                                {{ form.first_name|add_class:'form-control'|add_class:'edit_name' }}
+                            </p>
+                            <p>
+                                {{ form.last_name|add_class:'form-control'|add_class:'edit_name' }}
+                            </p>
+                            <p>
+                                {{ userform.profession|add_class:'form-control'|add_class:'edit_profession' }}
+                            </p>
+                            <p>
+                                {{ userform.institute|add_class:'form-control'|add_class:'edit_institute' }}
+                            </p>
+                            <p>
+                                {{ form.email|add_class:'form-control'|add_class:'edit_email' }}
+                            </p>
+                        </div>
+                        <div class="col-md-6 edit_profile-left">
+                            <div class="edit_profile-left-content">
+                                <p><span>Username:</span> {{ user }}</p>
+                                <p>
+                                    {{ userform.phone|add_class:'form-control'|add_class:'edit_phone' }}
+                                </p>
+                                <p>
+                                    {{ userform.blood|add_class:'form-control'|add_class:'edit_blood' }}
+                                </p>
+                                <p>
+                                    {{ userform.website|add_class:'form-control'|add_class:'login-form' }}
+                                </p>
+                                <p>
+                                    {{ userform.city|add_class:'form-control'|add_class:'login-form' }}
+                                </p>
+                            </div>
+                        </div>
+                        <div class="col-md-6 edit_profile-right">
+                            <div class="edit_profile-right-content">
+                                <p><span>
+                                    About {{ user.first_name }},
+                                </span></p>
+
+                                <p>
+                                    {{ userform.description|add_class:'form-control'|add_class:'login-form' }}​
+                                    <span id='remainingC'></span>
+                                </p>
+                            
+                                <button type="submit" class="btn btn-lg btn-success">Submit</button>
+                                <a href="{% url 'accounts:change_password' %}" class="btn btn-primary btn-lg" role="button" >Change Password</a>
+                            </div>
+                        </div>
+                    </div>
                 </form>
             </div>
-        </div> 
+        </div>
     </div>           
 </section>
+<script src="https://ajax.googleapis.com/ajax/libs/jquery/2.1.1/jquery.min.js"></script>
+<script>
+    $(document).ready(function() {
+        var len = 0;
+        var maxchar = 250;
+
+        $( '#my-input' ).keyup(function(){
+            len = this.value.length
+            if(len > maxchar){
+                return false;
+            }
+            else if (len > 0) {
+                $( "#remainingC" ).html( "Remaining characters: " +( maxchar - len ) +"/250" );
+            }
+            else {
+                $( "#remainingC" ).html( "Remaining characters: " +( maxchar )+"/250" );
+            }
+        })
+    });
+</script>
 {% endblock %}

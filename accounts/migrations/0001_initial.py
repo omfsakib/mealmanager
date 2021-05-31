@@ -18,7 +18,7 @@ class Migration(migrations.Migration):
             name='UserProfile',
             fields=[
                 ('id', models.BigAutoField(auto_created=True, primary_key=True, serialize=False, verbose_name='ID')),
-                ('description', models.CharField(default='', max_length=500)),
+                ('description', models.CharField(default='', max_length=250)),
                 ('city', models.CharField(default='', max_length=100)),
                 ('website', models.URLField(default='')),
                 ('phone', models.IntegerField(default=0)),

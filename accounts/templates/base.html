@@ -22,7 +22,8 @@
         <!-- The styles -->
         
       <!---- <link rel="stylesheet" href="{% static 'accounts/css/style.css' %}"/>--> 
-        <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.4.1/css/bootstrap.min.css">
+      
+        <link href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-BVYiiSIFeK1dGmJRAkycuHAHRg32OmUcww7on3RYdg4Va+PmSTsz/K68vbdEjh4u" crossorigin="anonymous">
         <link href="{% static 'accounts/css/font-awesome/css/font-awesome.min.css' %}" rel="stylesheet" type="text/css" >
         <style>
             /* =========================================
@@ -111,7 +112,6 @@
             .reset_password_confirm,
             .reset_password_complete,
             .change_password,
-            .edit_profile,
             .logout,
             .signup,
             .login{
@@ -138,7 +138,6 @@
                 box-shadow:0px 0px 9px rgba(0, 0, 0, 0.8);
                 border-radius: 15%;
             }
-            .edit_profile-box,
             .signup-box{
                 background: rgb(255, 255, 255);
                 height: 800px;
@@ -147,19 +146,16 @@
                 -webkit-box-shadow:0px 0px 9px rgba(0, 0, 0, 0.8);
                 box-shadow:0px 0px 9px rgba(0, 0, 0, 0.8);
                 border-radius: 5%;
+                
             }
             .change_password-box .form{
                 margin-top: 30px !important;
-            }
-            .edit_profile-box .form{
-                margin-top: 10px !important;
             }
             .reset_password-box .form,
             .reset_password_done-box .form,
             .reset_password_confirm-box .form,
             .reset_password_complete-box .form,
             .change_password-box .form,
-            .edit_profile-box .form,
             .logout-box .form,
             .signup-box .form,
             .login-box .form{
@@ -180,10 +176,6 @@
                 font-size: 20px;
                 font-family:'Dosis', sans-serif;
             }
-            .edit_profile-box .form label{
-                margin-bottom: 5px !important;
-            }
-            .edit_profile-box .form label,
             .signup-box .form label{
                 margin-bottom: 10px;
                 font-size: 15px;
@@ -192,7 +184,6 @@
             .reset_password-box .form input,
             .reset_password_confirm-box .form input,
             .change_password-box .form input,
-            .edit_profile-box .form input,
             .signup-box .form input,
             .login-box .form input{
                 border:1px solid rgb(128, 177, 218);
@@ -200,13 +191,9 @@
                 margin-bottom: 20px;
                 background-color: rgb(250, 250, 250);
             }
-            .edit_profile-box .form input{
-                margin-bottom: 10px !important;
-            }
             .reset_password-box .form .btn,
             .reset_password_confirm-box .form .btn,
             .change_password-box .form .btn,
-            .edit_profile-box .form .btn,
             .signup-box .form .btn,
             .login-box .form .btn{
                 margin-bottom: 20px;
@@ -214,7 +201,6 @@
             .reset_password-box .form .btn:hover,
             .reset_password_confirm-box .form .btn:hover,
             .change_password-box .form .btn:hover,
-            .edit_profile-box .form .btn:hover,
             .signup-box .form .btn:hover,
             .login-box .form .btn:hover{
                 transition-duration: 0.5s;
@@ -292,9 +278,10 @@
                 z-index: 1;
             }
             /* =========================================
-                            Profile Section
+                   Profile & Edit Profile Section
             ============================================ */
-            .profile{
+            .profile,
+            .edit_profile{
                 height: 100%;
                 width: 100%;
                 position: fixed;
@@ -302,7 +289,10 @@
             }
             .profile-right,
             .profile-left,
-            .profile-up{
+            .profile-up,
+            .edit_profile-right,
+            .edit_profile-left,
+            .edit_profile-up{
                 padding: 60px;
                 height: 100%;
                 background-color: #fff;
@@ -311,13 +301,17 @@
                 
             }
             .profile-left,
-            .profile-right{
-              height: 275px !important;
+            .profile-right,
+            .edit_profile-left,
+            .edit_profile-right{
+                height: 275px !important;
                 width: 48%;
             }
+            .edit_profile-right,
             .profile-right{
               float: right;
             }
+            .edit_profile-up img,
             .profile-up img{
                 border:1px solid rgb(128, 177, 218);
                 border-radius: 45px;
@@ -349,10 +343,44 @@
             .profile-left-content p span{
                 font-weight: bold;
             }
+            .edit_profile-right-content .btn,
             .profile-right-content .btn{
                 display: inline-block !important;
                 margin-top: 20px !important;
-                margin-left: 20px !important;
+                margin-left: 40px;
+            }
+            .edit_profile-up p{
+                float: left !important;
+            }
+            .edit_profile-up p input{
+                float: left !important;
+            }
+            .edit_profile-up p .edit_name{
+                width: 250px;
+                margin-right: 10px;
+            }
+            .edit_profile-up p .edit_profession{
+                width: 300px;
+            }
+            .edit_profile-up p .edit_institute{
+                width: 600px;
+            }
+            .edit_profile-up p .edit_email{
+                width: 300px;
+            }
+            .edit_profile-left-content p .edit_phone{
+                width: 200px;
+                float: left !important;
+                margin-bottom: 10px;
+            }
+            .edit_profile-left-content p .edit_blood{
+                width: 200px;
+                float: right !important;
+            }
+            .edit_profile-right-content .btn{
+                float: left !important;
+                margin-left: 0px !important;
+                margin-right: 20px;
             }
             /* =========================================
                     Add Bills & AmountSpend Section
@@ -454,6 +482,9 @@
                     <li class=><a href="{% url 'groups:groups' %}">Group</a></li>
                     <li><a href="{% url 'accounts:view_profile' %}">Profile</a></li>
                     <li><a href="#">Contact Us</a></li>
+                    {% if user.is_superuser %}
+                    <li><a href="http://127.0.0.1:8000/admin/">Administration</a></li>
+                    {% endif %}
                   </ul>
                   <ul class="nav navbar-nav navbar-right">
                     <li><a href="{% url 'accounts:logout' %}"><span class="glyphicon glyphicon-log-out"></span> Logout</a></li>
@@ -481,8 +512,9 @@
 
 
             </div>
+
+        <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js" integrity="sha384-Tc5IQib027qvyjSMfHjOMaLkfuWVxZxUPnCJA7l2mCWNIpG9mGCD8wGNIcPD7Txa" crossorigin="anonymous"></script>
         <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
-        <script src="{% static 'accounts/js/bootstrap.min.js' %}"></script>
         <script src="{% static 'accounts/js/script.js' %}"></script>
     </body>
 

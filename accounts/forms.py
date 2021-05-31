@@ -36,6 +36,7 @@ class EditProfileForm(UserChangeForm):
             'password'
         )
 BLOOD_GROUPS = [
+    ('','Choose blood group'),
     ('A+', 'A+'),
     ('A-', 'A-'),
     ('B+', 'B+'),
@@ -46,13 +47,14 @@ BLOOD_GROUPS = [
     ('AB-', 'AB-'),
 ]
 class EditUserProfileForm(forms.ModelForm):
-    description=forms.CharField(max_length=100,widget=forms.Textarea)
-    city = forms.CharField(max_length=100)
-    website = forms.URLField()
-    phone = forms.IntegerField()
-    profession = forms.CharField(max_length=100)
-    blood = forms.CharField(widget=forms.Select(choices=BLOOD_GROUPS))
-    institute = forms.CharField(max_length=100)
+    description=forms.CharField(required=None,max_length=250,widget=forms.Textarea
+                           (attrs={'id':'my-input','placeholder': 'Write about yourself.....','rows':3, 'cols':15}))
+    city = forms.CharField(required=None,max_length=100,widget=forms.TextInput(attrs={'placeholder': 'Write your address...'}))
+    website = forms.URLField(required=None,widget=forms.TextInput(attrs={'placeholder': 'Enter your Website'}))
+    phone = forms.IntegerField(required=None,widget=forms.TextInput(attrs={'placeholder': 'i.e 184644****'}))
+    profession = forms.CharField(required=None,max_length=100,widget=forms.TextInput(attrs={'placeholder': 'Write your profession'}))
+    blood = forms.CharField(required=None,widget=forms.Select(choices=BLOOD_GROUPS,attrs={'placeholder': 'Choose your blood group'}))
+    institute = forms.CharField(required=None,max_length=100,widget=forms.TextInput(attrs={'placeholder': 'Write your institute name'}))
 
     class Meta:
         model = User
